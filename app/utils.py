@@ -2,7 +2,7 @@ import httpx
 from fastapi import HTTPException, status
 
 
-async def validate_external_place(external_id: int):
+async def validate_external_place(external_id: int) -> None:
     url = f"https://api.artic.edu/api/v1/artworks/{external_id}"
     async with httpx.AsyncClient() as client:
         response = await client.get(url)

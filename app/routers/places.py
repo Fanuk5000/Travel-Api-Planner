@@ -14,8 +14,10 @@ router = APIRouter(prefix="/projects/{project_id}/places", tags=["Places"])
 )
 async def add_place_to_project(
     project_id: int, place: schemas.PlaceCreate, db: Session = Depends(get_db)
-):
-    project = db.query(models.Project).filter(models.Project.id == project_id).first()
+) -> models.Place:
+    project: models.Project | None = (
+        db.query(models.Project).filter(models.Project.id == project_id).first()
+    )
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 
@@ -44,7 +46,9 @@ async def add_place_to_project(
 
 
 @router.get("/", response_model=list[schemas.PlaceResponse])
-def list_project_places(project_id: int, db: Session = Depends(get_db)):
+def list_project_places(
+    project_id: int, db: Session = Depends(get_db)
+) -> list[models.Place]:
     return db.query(models.Place).filter(models.Place.project_id == project_id).all()
 
 
@@ -54,8 +58,8 @@ def update_place(
     place_id: int,
     place_update: schemas.PlaceUpdate,
     db: Session = Depends(get_db),
-):
-    place = (
+) -> models.Place:
+    place: models.Place | None = (
         db.query(models.Place)
         .filter(models.Place.id == place_id, models.Place.project_id == project_id)
         .first()
