@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Environment Variables (Security)
+.env
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# SQLite Database (Prevent copying local data to the container)
+*.db
+*.sqlite
+*.sqlite3
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+
+# OS generated files
+.DS_Store
+Thumbs.db
